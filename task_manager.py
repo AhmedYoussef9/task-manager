@@ -53,14 +53,24 @@ class TaskManager:
         self.save_tasks()
 
 def print_task(task):
-    """Print a single task in a formatted way."""
+    """Print a single task in a formatted way with colors."""
+    colors = {
+        "Pending": "\033[93m",  # Yellow
+        "Completed": "\033[92m",  # Green
+        "reset": "\033[0m"
+    }
+    
+    status_color = colors.get(task['status'], colors["reset"])
+    
     print(f"\nTask #{task['id']}")
     print(f"Title: {task['title']}")
     print(f"Description: {task['description']}")
-    print(f"Status: {task['status']}")
+    print(f"Status: {status_color}{task['status']}{colors['reset']}")
     print(f"Created: {task['created_at']}")
+    
     if task['due_date']:
         print(f"Due: {task['due_date']}")
+    
     print("-" * 30)
 
 def main():
